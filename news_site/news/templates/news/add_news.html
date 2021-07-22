@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<h3>Добавление новости</h3>
+
+{% if request.user.is_authenticated %}
+    <form action="{% url 'add_news' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit"><div class="header__logo"><h2>Add news</h2></div></button>
+    </form>
+{% else %}
+    <div class="errorbox">
+        <div class="errortext">Добавить новость может только зарегестрированный пользователь</div>
+    </div>
+{% endif %}
+
+{% endblock %}

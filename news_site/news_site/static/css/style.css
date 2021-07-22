@@ -1,0 +1,327 @@
+body {
+    font-family: "RobotoSlab";
+    margin: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.intro {
+    width: 100%;
+    height: 100vh;
+    margin-top: 50px;
+}
+
+.header {
+    width: 100%;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 0 0 8px 8px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header__inner {
+    font-family: "RobotoSlab";
+    height: 50px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.header__logo {
+    font-family: "KaushanScript";
+    font-weight: 700;
+    margin-right: 25px;
+    font-size: 16px;
+}
+    .nav {
+    font-size: 14px;
+}
+
+.nav__link {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0px 5px;
+    position: relative;
+
+    text-decoration: none;
+    color: #000;
+}
+
+.nav__link:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+
+
+    background-color: #dce0e0;
+    opacity: 0;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+
+    transition: opacity .3s linear;
+}
+
+.nav__link:hover:after {
+    opacity: 1;
+}
+
+.container__for{
+    margin: 80px 40px;
+}
+
+.card{
+    margin: 20px 0;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 8px;
+}
+
+.card-header {
+    width: 100%;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 8px 8px 0 0;
+}
+
+.container__card {
+    margin: 15px 15px;
+}
+
+
+.card-body {
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-photo {
+    width: 30%;
+    margin-left: 20px;
+}
+
+.card-text {
+    width: 80%;
+    margin: 0 40px;
+}
+
+.card-footer {
+    width: 100%;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 0 0 8px 8px;
+    margin-top: 20px;
+}
+
+input, textarea {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 2px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+}
+
+select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border: 3px solid #dce0e0;
+}
+
+button{
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border-radius: 5px;
+      background: #f0f4f5d6;
+}
+
+input[type="checkbox"]:checked,
+input[type="checkbox"]:not(:checked) {
+    width: 10%;
+}
+
+input[type="file"] {
+    width: 40%;
+}
+
+.errorlist {
+    color: red;
+}
+
+.errorbox {
+    display: table-cell;
+    vertical-align: middle;
+    width:10%;
+    background-color: #f7bebe;
+    border: solid;
+    border-width: 1px;
+    border-color: #f7a6a6;
+    border-radius: 5px;
+}
+
+.errortext {
+    color: #824f4f;
+    font-size: 14px;
+    margin: 8px 25px;
+}
+
+.successbox {
+    display: table-cell;
+    vertical-align: middle;
+    width:10%;
+    background-color: #b9e0a6;
+    border: solid;
+    border-width: 1px;
+    border-color: #a2b09b;
+    border-radius: 5px;
+}
+
+.successtext {
+    color: #4e6344;
+    font-size: 14px;
+    margin: 8px 25px;
+}
+ul {
+padding: 0px;
+}
+.menu a {
+text-decoration:none
+}
+.menu li {
+    position: relative;
+    list-style:none;
+}
+
+.menu li:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu {
+    position: absolute;
+    display: none;
+}
+
+.sub_category{
+    font-size: 14px;
+    line-height: 1.4;
+    display: block;
+    height: 80px;
+    width: 100px;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 0 0 8px 8px;
+}
+
+.link {
+    font-family: "RobotoSlab";
+    margin-top: 11px;
+    margin-left: 5px;
+    color: black;
+}
+
+.comment{
+    margin: 20px 0;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 8px;
+}
+
+.comment-header {
+    width: 100%;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 8px 8px 0 0;
+}
+
+.comment-footer {
+    width: 100%;
+    background: #f0f4f5d6;
+    border: solid;
+    border-width: 1px;
+    border-color: #dce0e0;
+    border-radius: 0 0 8px 8px;
+    margin-top: 20px;
+}
+
+.comment p {
+    margin-block-start: 0;
+    margin-block-end: -1%;
+}
+
+span.cnt {
+    color: #969595;
+}
+
+.pag {
+    display: flex;
+}
+
+.pag_text{
+    font-family: "KaushanScript";
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+
+
+
+
+@font-face{
+    font-family: "RobotoSlab";
+    src: url('../fonts/RobotoSlab.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: "KaushanScript";
+    src: url('../fonts/KaushanScript.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

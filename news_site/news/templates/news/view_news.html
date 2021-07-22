@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="container__card">
+                                {{ news.user }} |
+                                Категория:
+                                <a href="{{news.category.get_absolute_url}}" class="nav__link">
+                                    {{news.category}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-photo">
+                                {% if news.photo %}
+                                <img src="{{news.photo.url}}" alt="" width="90%">
+                                {% else %}
+                                <img src="{% static 'media/photos/123.jpg' %}" alt="" width="90%">
+                                {% endif %}
+
+                            </div>
+                            <div class="card-text">
+                                <h5>{{ news.title }}</h5>
+                                <p>{{ news.content|safe}}</p>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="container__card">
+                                {{ news.created_at }}
+                            </div>
+                        </div>
+                    </div>
+
+                {% if request.user.is_authenticated %}
+                        <h4>Добавьте ваш комментарий</h4>
+                        <form action="." method="post">
+                            {{ comment_form.as_p }}
+                            {% csrf_token %}
+                            <button type="submit"><div class="header__logo"><h2>Add comment</h2></div></button>
+                        </form>
+                {% else %}
+                        <p>
+                            <a href="{% url 'login' %}" class="nav__link"><span class="cnt">Войдите<span></a>
+                            на сайт, чтобы оставить комментарий
+                        </p>
+                {% endif %}
+
+                    {% with comments.count as total_comments %}
+                        <h4>
+                            Количество комментариев: {{ total_comments }}
+                        </h4>
+                    {% endwith %}
+
+                    {% for comment in comments %}
+                    <div class="comment">
+                        <div class="comment-header">
+                            {{ comment.user }}
+                        </div>
+                            {{ comment.context|linebreaks }}
+                        <div class="comment-footer">
+                            {{ comment.created_at }}
+                        </div>
+                    </div>
+                    {% empty %}
+                        <p>Под этой новостью нет комментариев</p>
+                    {% endfor %}
+
+{% endblock %}
+

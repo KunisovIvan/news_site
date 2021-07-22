@@ -1,0 +1,176 @@
+{% load static %}
+{% load news_tags %}
+{% get_categories as categories %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{{ title }} | News</title>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__inner">
+                <div class="header__logo"><h2><a href="{% url 'home' %}" class="nav__link">News</a></h2></div>
+
+                    <a href="{% url 'home' %}" class="nav__link">Главная</a>
+                    {% if request.user.is_authenticated %}
+                        <a href="{% url 'add_news' %}" class="nav__link">Добавить новость</a>
+                    {% endif %}
+                    <a href="{% url 'contact' %}" class="nav__link">Обратная связь</a>
+                <ul class="menu">
+                    <li><a href="{% url 'home' %}" class="nav__link">Категории</a>
+                        <ul class="sub-menu">
+                                <li>
+                                    <div class="sub_category">
+                                            {% for item in categories %}
+                                                    <a href="{{item.get_absolute_url}}" class="nav__link">
+                                                           {{item.title}} <span class="cnt">{{item.cnt}}</span>
+                                                    </a>
+                                            {% endfor %}
+                                    </div>
+                                </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+
+            <nav class="nav">
+                {% if request.user.is_authenticated %}
+                    Добро пожаловать, <span class="cnt">{{ user.username }}<span>  |
+                    <a href="{% url 'logout' %}" class="nav__link">Выход</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav__link">Вход</a> |
+                    <a href="{% url 'register' %}" class="nav__link">Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="intro">
+    <div class="container__for">
+
+
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                        <div class="errorbox">
+                            <div class="errortext">{{ message }}</div>
+                        </div>
+                        {% else %}
+                            <div class="successbox">
+                            <div class="successtext">{{ message }}</div>
+                        </div>
+                        {% endif%}
+                    {% endfor %}
+                {% endif%}
+
+        {% block content %}
+
+                {% if page_obj.has_other_pages %}
+                    <div class="pag">
+                        {% if page_obj.has_previous %}
+                        <div class="pag_text">
+                            <a href="?page={{page_obj.previous_page_number}}" class="nav__link">< previous</a>
+                        </div>
+                        {% endif %}
+                        {% for p in page_obj.paginator.page_range %}
+                            {% if p > page_obj.number|add:-3 and p < page_obj.number|add:3  %}
+                                {% if page_obj.number == p %}
+                                   <h4><a href="?page={{p}}" class="nav__link"><span class="cnt">{{p}}</span></a></h5>
+                                {% else %}
+                                   <a href="?page={{p}}" class="nav__link">{{p}}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                               <div class="pag_text">
+                                   <a href="?page={{page_obj.next_page_number}}" class="nav__link">next ></a>
+                               </div>
+                        {% endif %}
+                </div>
+                {% endif %}
+
+                {% for item in news %}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="container__card">
+                                {{ item.user }} |
+                                Категория:
+                                <a href="{{item.category.get_absolute_url}}" class="nav__link">
+                                    {{item.category}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-photo">
+                                {% if item.photo %}
+                                <img src="{{item.photo.url}}" alt="" width="90%">
+                                {% else %}
+                                <img src="{% static 'media/photos/123.jpg' %}" alt="" width="90%">
+                                {% endif %}
+
+                            </div>
+                            <div class="card-text">
+                                <h5>{{ item.title }}</h5>
+                                <p>{{ item.content|safe|linebreaks| truncatewords:100 }}</p>
+                                <div class="header__logo">
+                                    <h3><a href="{{item.get_absolute_url}}" class="nav__link">Read more...</a></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="container__card">
+                                {{ item.created_at }} |
+                                {% with item.comments.count as total_comments %}
+                                    <a href="{{item.get_absolute_url}}" class="nav__link">
+                                        Комментарии: {{ total_comments }}
+                                    </a>
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% if page_obj.has_other_pages %}
+                    <div class="pag">
+                        {% if page_obj.has_previous %}
+                        <div class="pag_text">
+                            <a href="?page={{page_obj.previous_page_number}}" class="nav__link">< previous</a>
+                        </div>
+                        {% endif %}
+                        {% for p in page_obj.paginator.page_range %}
+                            {% if p > page_obj.number|add:-3 and p < page_obj.number|add:3  %}
+                                {% if page_obj.number == p %}
+                                   <h4><a href="?page={{p}}" class="nav__link"><span class="cnt">{{p}}</span></a></h5>
+                                {% else %}
+                                   <a href="?page={{p}}" class="nav__link">{{p}}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                               <div class="pag_text">
+                                   <a href="?page={{page_obj.next_page_number}}" class="nav__link">next ></a>
+                               </div>
+                        {% endif %}
+                </div>
+                {% endif %}
+
+        {% endblock %}
+
+
+        </div>
+    </div>
+
+</body>
+</html>
